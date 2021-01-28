@@ -2,7 +2,7 @@ name: Eglot check
 
 on:
   push:
-    branches: [master]
+    branches: [github-action]
   pull_request:
     branches: [master]
 
