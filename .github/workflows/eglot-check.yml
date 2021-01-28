@@ -1,0 +1,27 @@
+name: Eglot check
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        - '26.1'
+        - '26.2'
+        - '26.3'
+        - '27.1'
+        - 'snapshot'
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: purcell/setup-emacs@master
+      with:
+        version: ${{ matrix.emacs_version }}
+    - uses: actions/setup-python@v2
+    - run: pip install python-language-server[all]==0.31.10
+    - run: make eglot-check
